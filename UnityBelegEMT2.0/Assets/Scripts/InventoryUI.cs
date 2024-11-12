@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 
@@ -15,6 +13,8 @@ public class InventoryUI : MonoBehaviour
     // Update is called once per frame
     public void UpdateCollectText(PlayerInventory playerInventory)
     {
-        collectText.text = playerInventory.NumberOfCollectibles.ToString();
+        int redPoints = playerInventory.NumberOfRedCollectibles;
+        int greenPoints = playerInventory.NumberOfGreenCollectibles;
+        collectText.text = $"Red: {redPoints} | Green: {greenPoints}";
     }
 }

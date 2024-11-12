@@ -1,17 +1,14 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-public class Battery : MonoBehaviour
+public class BatteryRed : MonoBehaviour
 {
     private void OnTriggerEnter(Collider other)
     {
         PlayerInventory playerInventory = other.GetComponent<PlayerInventory>();
-        
-        if(playerInventory != null)
+
+        if (playerInventory != null)
         {
-            playerInventory.Collected();
+            playerInventory.Collected("red");
             gameObject.SetActive(false);
         }
     }

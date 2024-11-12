@@ -1,29 +1,26 @@
-using System.Collections;
-using System.Collections.Generic;
-using System.Threading;
 using UnityEngine;
+using System.Threading;
 
 public class Spawner : MonoBehaviour
 {
-    public GameObject prefab;
+    public GameObject redPrefab;
 
-    public GameObject prefab2;
+    public GameObject greenPrefab;
 
     public float spawnRate = 2f;
     private float nextSpawnTime = 1f;
     public int spawnCount = 0;
     private int spawnStart = 0;
-
+    private string spawnRedOrGreen;
 
     [SerializeField]
     private ArduinoController arduinoController;
 
-    private bool spawn1or2 = false;
 
     // Update is called once per frame
     void Update()
     {
-        if(Time.time >= nextSpawnTime && spawnStart <= spawnCount)
+        if (Time.time >= nextSpawnTime && spawnStart <= spawnCount)
         {
             SpawnObject();
             spawnStart++;
@@ -34,13 +31,14 @@ public class Spawner : MonoBehaviour
         {
             string returnData = arduinoController.GetData();
 
-            if (returnData.Equals("red"))
+            if (returnData == "red")
             {
-                spawn1or2 = true;
+                Debug.Log("red was called");
+                spawnRedOrGreen = "red";
             }
             else
             {
-                spawn1or2 = false;
+                spawnRedOrGreen = "green";
             }
         }
 
@@ -51,10 +49,14 @@ public class Spawner : MonoBehaviour
         Vector3 randomSpawnPosition = new Vector3(Random.Range(-50, 51), 1, Random.Range(-50, 51));
 
 
-        if(spawn1or2 == false) Instantiate(prefab, randomSpawnPosition, Quaternion.identity);
-        else Instantiate(prefab2, randomSpawnPosition, Quaternion.identity);
+        if (spawnRedOrGreen == "red")
+        {
+            Instantiate(redPrefab, randomSpawnPosition, Quaternion.identity);
+            Debug.Log("red was inst");
+        }
+        else Instantiate(greenPrefab, randomSpawnPosition, Quaternion.identity);
 
     }
 
-   
+
 }
